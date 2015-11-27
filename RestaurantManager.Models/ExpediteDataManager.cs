@@ -8,7 +8,7 @@ namespace RestaurantManager.Models
          
         protected override void OnDataLoaded()
         {
-            _orderItems = base.Repository.Orders;
+            OrderItems = base.Repository.Orders;
         }
 
         public List<Order> OrderItems

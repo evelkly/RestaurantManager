@@ -4,30 +4,28 @@ namespace RestaurantManager.Models
 {
     public class OrderDataManager : DataManager
     {
-        private List<MenuItem> _menuItems;
-        private List<MenuItem> _currentlySelectedMenuItems;
+        private List<MenuItem> _menuItems = null;
+        private List<MenuItem> _currentlySelectedMenuItems = null;
 
         protected override void OnDataLoaded()
         {
-            this._menuItems = base.Repository.StandardMenuItems;
+            this.MenuItems = base.Repository.StandardMenuItems;
 
-            this._currentlySelectedMenuItems = new List<MenuItem>
+            this.CurrentlySelectedMenuItems = new List<MenuItem>
             {
                 this.MenuItems[3],
                 this.MenuItems[5]
             };
-            this.OnPropertyChanged("MenuItems");
-            this.OnPropertyChanged("CurrentlySelectedMenuItems");
         }
 
         public List<MenuItem> MenuItems
         {
-            get { return this._menuItems; }
+            get { return _menuItems; }
             set
             {
-                if (value != _menuItems)
+                if (value != null)
                 {
-                    this._menuItems = value;
+                    _menuItems = value;
                     this.OnPropertyChanged();
                 }
             }
@@ -35,10 +33,10 @@ namespace RestaurantManager.Models
 
         public List<MenuItem> CurrentlySelectedMenuItems
         {
-            get { return this._currentlySelectedMenuItems; }
+            get { return _currentlySelectedMenuItems; }
             set
             {
-                if(value != _currentlySelectedMenuItems)
+                if(value != null)
                 {
                     _currentlySelectedMenuItems = value;
                     this.OnPropertyChanged();

@@ -5,14 +5,19 @@
     xmlns:local="using:RestaurantManager.UniversalWindows"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:extensions="using:RestaurantManager.Extensions"
     mc:Ignorable="d">
     <Page.Resources>
         <ControlTemplate x:Key="ButtonControlCustomTemplate" TargetType="Button">
             <Border CornerRadius="20" Background="{TemplateBinding Background}" BorderThickness="0,1,1,0">
-                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}" />
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}" Margin="{TemplateBinding Padding}" />
             </Border>
         </ControlTemplate>
     </Page.Resources>
+    <i:Interaction.Behaviors>
+        <extensions:RightClickMessageDialogBehavior />
+    </i:Interaction.Behaviors>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.40*" />

@@ -7,6 +7,7 @@ namespace RestaurantManager.UniversalWindows
     {
         public OrderPage()
         {
+            
             this.InitializeComponent();
         }
 

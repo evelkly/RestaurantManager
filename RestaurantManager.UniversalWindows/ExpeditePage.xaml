@@ -8,9 +8,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    
     <Page.DataContext>
         <vm:ExpediteViewModel />
     </Page.DataContext>
+    
     <Page.TopAppBar>
         <AppBar>
             <AppBarButton Label="Home" Click="MainPage_Click">
@@ -20,15 +22,24 @@
             </AppBarButton>
         </AppBar>
     </Page.TopAppBar>
+    
     <Page.Resources>
         <extensions:BoolToColorConverter x:Key="BoolToColorConverter" />
     </Page.Resources>
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.05*"/>
             <RowDefinition Height="0.85*"/>
             <RowDefinition Height="0.10*"/>
         </Grid.RowDefinitions>
+        <ProgressRing Grid.ColumnSpan="3" 
+                                      Grid.RowSpan="5" 
+                                      Width="300"
+                                      Height="300"
+                                      DataContext="{Binding ElementName=ExpediteOrders, Path=DataContext}" 
+                                      IsActive="{Binding IsLoading}" />
+
         <GridView Grid.Row="1" ItemsSource="{Binding OrderItems}">
             <GridView.ItemTemplate>
                 <DataTemplate>
@@ -38,35 +49,52 @@
                             <RowDefinition Height="100"/>
                             <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
+
                         <Border Background="DarkGray">
                             <ListBox ItemsSource="{Binding Items}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
-                                            <TextBlock Text="{Binding Title}" Style="{StaticResource SubtitleTextBlockStyle}" TextWrapping="NoWrap"/>
+                                            <TextBlock Text="{Binding Title}" 
+                                                       Style="{StaticResource SubtitleTextBlockStyle}" 
+                                                       TextWrapping="NoWrap"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </Border>
+                        
                         <StackPanel Grid.Row="1" Orientation="Vertical">
-                            <TextBlock Margin="5" Text="{Binding Table.Description}" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="WrapWholeWords"/>
-                            <TextBlock Margin="10" Style="{StaticResource CaptionTextBlockStyle}" TextWrapping="NoWrap">
+                            <TextBlock Margin="5" Text="{Binding Table.Description}" 
+                                       Style="{StaticResource TitleTextBlockStyle}" 
+                                       TextWrapping="WrapWholeWords"/>
+                            
+                            <TextBlock Margin="10" Style="{StaticResource CaptionTextBlockStyle}" 
+                                       TextWrapping="NoWrap">
                                 <Run Text="Special Notes:" />
                                 <LineBreak />
                                 <Run Text="{Binding SpecialRequests}" />
                             </TextBlock>
                         </StackPanel>
+                        
                         <Border Grid.Row="2">
                             <Border.Background>
-                                <SolidColorBrush x:Name="StatusBrush" Color="{Binding Expedite, Converter={StaticResource BoolToColorConverter}}" />
+                                <SolidColorBrush x:Name="StatusBrush" 
+                                                 Color="{Binding Expedite, Converter={StaticResource BoolToColorConverter}}" />
                             </Border.Background>
-                            <Button Content="Delete" HorizontalAlignment="Center" Command="{Binding ElementName=ExpediteOrders, Path=DataContext.DeleteOrderCommand}" CommandParameter="{Binding}" />
+                            
+                            <Button Content="Delete" HorizontalAlignment="Center" 
+                                    Command="{Binding ElementName=ExpediteOrders, Path=DataContext.DeleteOrderCommand}" 
+                                    CommandParameter="{Binding}" />
                         </Border>
                     </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
-        <Button Content="Clear All Orders" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" />
+        
+        <Button Content="Clear All Orders" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Grid.Row="2" />
     </Grid>
 </Page>
